@@ -27,7 +27,8 @@ export function ThoughtQuestion() {
             </div>
 
             <div className="w-full">
-                <button className="w-full h-10 md:h-14 tracking-widest  bg-text rounded-full text-white transform md:text-lg hover:bg-button">Got it</button>
+                <button className="w-full h-10 md:h-14 tracking-widest  bg-text rounded-full text-white transform md:text-lg hover:bg-button">
+                    Got it →</button>
                 <p className="text-center mt-6 text-text opacity-50 text-sm">one thought · one action · one block of time</p>
             </div>
         </div>

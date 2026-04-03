@@ -1,5 +1,6 @@
 import { ActionQuestion } from "./ActionQuestion";
 import { ThoughtQuestion } from "./ThoughtQuestion";
+import { TimeChoice } from "./TimeChoice";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
 
       <ThoughtQuestion/>
       <ActionQuestion/>
+      <TimeChoice/>
 
     </>
 
