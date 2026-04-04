@@ -1,7 +1,10 @@
 import { useState } from "react"
 
-export function ActionQuestion() {
-    const [selected, setSelected] = useState<string | null>(null);
+export function ActionQuestion({selected, setSelected} : {
+    selected: string | null;
+    setSelected: (value: string) => void
+}) {
+    
 
     return (
         <div className="bg-mainBg min-h-screen max-w-screen p-6 md:p-10 flex flex-col gap-6 justify-center items-start">
@@ -32,19 +35,19 @@ export function ActionQuestion() {
                 </div>
 
                 <div className="h-full w-full flex flex-col gap-2">
-                    <div onClick={() => setSelected('write')}
+                    <div onClick={() => setSelected('Write it down')}
                         className={`h-10 w-full p-2 border-2 flex items-center cursor-pointer text-text font-sans text-sm rounded-md
     ${selected === 'write' ? 'bg-lightBg text-text border-button border-opacity-50' : 'border-button border-opacity-50 hover:bg-lightBg'}`}>
                         ✍ Write it down</div>
-                    <div onClick={() => setSelected('breathe')}
+                    <div onClick={() => setSelected('Take a breath')}
                         className={`h-10 w-full p-2 border-2 flex items-center cursor-pointer text-text font-sans text-sm rounded-md
     ${selected === 'breathe' ? 'bg-lightBg text-text border-button border-opacity-50' : 'border-button border-opacity-50 hover:bg-lightBg'}`}>
                         🍃 Take a breath</div>
-                    <div onClick={()=> setSelected('talk')}
+                    <div onClick={()=> setSelected('Talk it out')}
                         className={`h-10 w-full p-2 border-2 flex items-center cursor-pointer text-text font-sans text-sm rounded-md
     ${selected === 'talk' ? 'bg-lightBg text-text border-button border-opacity-50' : 'border-button border-opacity-50 hover:bg-lightBg'}`}>
                        🗣️ Talk it out</div>
-                    <div onClick={()=> setSelected('move')}
+                    <div onClick={()=> setSelected('Move your body')}
                         className={`h-10 w-full p-2 border-2 flex items-center cursor-pointer text-text font-sans text-sm rounded-md
     ${selected === 'move' ? 'bg-lightBg text-text border-button border-opacity-50' : 'border-button border-opacity-50 hover:bg-lightBg'}`}>
                         🚶 Move the body</div>

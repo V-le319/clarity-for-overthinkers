@@ -1,7 +1,10 @@
-import { useState } from "react"
 
-export function TimeChoice() {
-        const [selectedTimer, setselectedTimer] = useState<number | null>(null)
+
+export function TimeChoice({selectedTimer, setSelectedTimer} : {
+    selectedTimer: number | null;
+    setSelectedTimer: (value: number) => void
+}) {
+        
 
     return (
         <div className="bg-mainBg min-h-screen max-w-screen p-6 md:p-10 flex flex-col gap-10 justify-center items-start">
@@ -45,21 +48,21 @@ export function TimeChoice() {
 
                         {/*make sure to not set fixed bg-colour in className when setting condition for select */}
                 <div className="h-40 w-full grid grid-cols-3 gap-3">
-                    <div onClick={()=> setselectedTimer(5)}
+                    <div onClick={()=> setSelectedTimer(5)}
                         className={` text-text border cursor-pointer border-button rounded-md flex flex-col justify-center items-center
                             ${selectedTimer === 5 ? 'bg-lightBg' : 'bg-mainBg'}`
                          }>
                         <h3 className="text-5xl">5</h3>
                         <p className="uppercase font-light text-sm">min</p>
                     </div>
-                    <div onClick={()=> setselectedTimer(15)}
+                    <div onClick={()=> setSelectedTimer(15)}
                         className={` text-text border cursor-pointer border-button rounded-md flex flex-col justify-center items-center
                           ${selectedTimer === 15 ? 'bg-lightBg' : 'bg-mainBg'}      `
                         }>
                         <h3 className="text-5xl ">15</h3>
                         <p className="uppercase font-light text-sm">min</p>
                     </div>
-                    <div onClick={()=> setselectedTimer(30)}
+                    <div onClick={()=> setSelectedTimer(30)}
                         className={` text-text border cursor-pointer border-button rounded-md flex flex-col justify-center items-center
                           ${selectedTimer === 30 ? 'bg-lightBg' : 'bg-mainBg'}      `
                         }>

@@ -1,8 +1,13 @@
 import { ActionQuestion } from "./ActionQuestion";
 import { ThoughtQuestion } from "./ThoughtQuestion";
 import { TimeChoice } from "./TimeChoice";
+import { Countdown } from "./Countdown";
+import { useState } from "react";
 
 function App() {
+        const [selected, setSelected] = useState<string | null>(null);
+        const [selectedTimer, setSelectedTimer] = useState<number | null>(null);
+
   return (
     <>
     <div className="min-h-screen bg-lightBg flex flex-col items-center justify-center ">
@@ -35,8 +40,9 @@ function App() {
     </div>
 
       <ThoughtQuestion/>
-      <ActionQuestion/>
-      <TimeChoice/>
+      <ActionQuestion selected={selected} setSelected={setSelected}/>
+      <TimeChoice selectedTimer={selectedTimer} setSelectedTimer={setSelectedTimer}/>
+      <Countdown selectedTimer={selectedTimer} selected={selected}/>
 
     </>
 
