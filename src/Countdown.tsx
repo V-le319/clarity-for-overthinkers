@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-export function Countdown({selectedTimer, selected} : {
+export function Countdown({selectedTimer, selected, onComplete} : {
     selectedTimer: number | null;
-    selected: string | null
+    selected: string | null;
+    onComplete: ()=> void
 }) {
         const [isPaused, setIsPaused] = useState(false);
 
@@ -60,7 +61,8 @@ export function Countdown({selectedTimer, selected} : {
                     className="border border-button text-text text-sm tracking-wider px-6 p-2 md:px-10 hover:bg-lightBg rounded-full">
                 {isPaused ? "Resume" : "Pause"}
                 </button>
-            <button className="border border-button  text-text text-sm tracking-wider px-6 p-2 md:px-10  hover:bg-lightBg rounded-full">Restart</button>
+            <button onClick={onComplete}
+            className="border border-button  text-text text-sm tracking-wider px-6 p-2 md:px-10  hover:bg-lightBg rounded-full">Restart</button>
         </div>
 
         <div className="w-full">

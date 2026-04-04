@@ -1,8 +1,9 @@
 import { useState } from "react"
 
-export function ActionQuestion({selected, setSelected} : {
+export function ActionQuestion({selected, setSelected, onComplete} : {
     selected: string | null;
-    setSelected: (value: string) => void
+    setSelected: (value: string) => void;
+    onComplete: ()=> void
 }) {
     
 
@@ -70,7 +71,8 @@ export function ActionQuestion({selected, setSelected} : {
                 </div>
 
                      <div className="w-full">
-                <button className="w-full h-10 md:h-14 tracking-widest  bg-text rounded-full text-white transform md:text-lg hover:bg-button">
+                <button onClick={onComplete}
+                        className="w-full h-10 md:h-14 tracking-widest  bg-text rounded-full text-white transform md:text-lg hover:bg-button">
                     I know what to do →</button>
                 <p className="text-center mt-6 text-text opacity-50 text-sm">one thought · one action · one block of time</p>
             </div>

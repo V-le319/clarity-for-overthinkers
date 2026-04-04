@@ -1,8 +1,9 @@
 
 
-export function TimeChoice({selectedTimer, setSelectedTimer} : {
+export function TimeChoice({selectedTimer, setSelectedTimer, onComplete} : {
     selectedTimer: number | null;
-    setSelectedTimer: (value: number) => void
+    setSelectedTimer: (value: number) => void;
+    onComplete: ()=> void
 }) {
         
 
@@ -73,7 +74,8 @@ export function TimeChoice({selectedTimer, setSelectedTimer} : {
             </div>
 
             <div className="w-full">
-                <button className="w-full h-10 md:h-14 tracking-widest  bg-text rounded-full text-white transform md:text-lg hover:bg-button">
+                <button onClick={onComplete}
+                        className="w-full h-10 md:h-14 tracking-widest  bg-text rounded-full text-white transform md:text-lg hover:bg-button">
                     Begin →</button>
                 <p className="text-center mt-6 text-text opacity-50 text-sm">one thought · one action · one block of time</p>
             </div>
