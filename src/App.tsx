@@ -2,7 +2,7 @@ import { ActionQuestion } from "./ActionQuestion";
 import { ThoughtQuestion } from "./ThoughtQuestion";
 import { TimeChoice } from "./TimeChoice";
 import { Countdown } from "./Countdown";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 function App() {
         const [selected, setSelected] = useState<string | null>(null);
@@ -10,17 +10,19 @@ function App() {
         const [thought, setThought] = useState<string>("");
 
         const [currentStep, setCurrentStep] = useState(0);
-        const handleNext = () => setCurrentStep(currentStep + 1); 
+        const handleNext = useCallback(() => {
+  setCurrentStep(currentStep + 1)
+}, [currentStep]);
         const handleRestart = () => setCurrentStep(1);
 
           useEffect(() => {
-            if(currentStep === 0) {
-              const timer = setTimeout(() => {
-                handleNext()
-              }, 3000);
-              return ()=>clearTimeout(timer) 
-            }
-          }, [currentStep])
+  if (currentStep === 0) {
+    const timer = setTimeout(() => {
+      handleNext()
+    }, 3000)
+    return () => clearTimeout(timer)
+  }
+}, [currentStep, handleNext])
 
   return (
     <>
