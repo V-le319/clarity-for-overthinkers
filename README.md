@@ -18,10 +18,6 @@ Built to practice TypeScript in a real project context, and to solve a personal 
 - React 17
 - TypeScript
 - Tailwind CSS
- 
-## Run locally
- 
-
- 
+  
 ## Live
 https://clarity-for-overthinkers.vercel.app/
