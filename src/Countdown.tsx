@@ -1,22 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export function Countdown({selectedTimer, selected, onComplete} : {
+export function Countdown({selectedTimer, selected, currentStep, onRestart} : {
     selectedTimer: number | null;
     selected: string | null;
-    onComplete: ()=> void
+    currentStep: number;
+    
+    onRestart: ()=> void
 }) {
+
         const [isPaused, setIsPaused] = useState(false);
 
+        const [timeLeft, setTimeLeft] = useState((selectedTimer ?? 0) * 60);
+         useEffect(() => {
+  if (timeLeft === 0 || isPaused) return
+  
+  const timer = setInterval(() => {
+    setTimeLeft(timeLeft - 1)
+  }, 1000)
+  
+  return () => clearInterval(timer)
+}, [timeLeft, isPaused])
+
+const minutes = Math.floor(timeLeft / 60)
+const seconds = timeLeft % 60;
+
+
+
     return (
-        <div className="bg-mainBg h-screen max-w-screen p-6 md:p-10 flex flex-col gap-8 justify-center items-start">
+        <div className="bg-mainBg h-screen max-w-screen p-6 md:p-10 flex flex-col gap-10 justify-center items-start">
             <div className="header w-full">
                 <h1 className="font-serif text-2xl font-extralight tracking-widest text-button mb-6 md:mb-10">Clarity</h1>
                 <div className="flex gap-2 w-full">
-                    <div className="h-1 w-full bg-button rounded-md"></div>
-                    <div className="h-1 w-full bg-lightBg rounded-md"></div>
-                    <div className="h-1 w-full bg-lightBg rounded-md"></div>
-                    <div className="h-1 w-full bg-lightBg rounded-md"></div>
-                </div>
+                {[1,2,3,4].map((step) => (
+  <div key={step} className={`h-1 w-full rounded-md ${currentStep >= step ? 'bg-button' : 'bg-lightBg'}`}/>
+))}
+</div>
                 </div>
 
         <div className="w-full flex flex-col justify-center items-center">
@@ -33,7 +51,7 @@ export function Countdown({selectedTimer, selected, onComplete} : {
                         className="fill-button font-sans text-opacity-80 font-light text-text text-3xl"
                        
                     >
-                    {selectedTimer}
+                    {minutes}:{seconds.toString().padStart(2, '0')}
                     </text>
 
                 <circle
@@ -42,8 +60,8 @@ export function Countdown({selectedTimer, selected, onComplete} : {
                     stroke="#a67a5b"
                     strokeWidth="3"
                     strokeDasharray={2 * Math.PI * 80}
-                    strokeDashoffset={2 * Math.PI * 80}
-                    className="animate-ring"
+                    strokeDashoffset={2 * Math.PI * 80 * (timeLeft / ((selectedTimer ?? 1) * 60))}
+                    
                     />
                 </svg>
         </div>
@@ -61,7 +79,7 @@ export function Countdown({selectedTimer, selected, onComplete} : {
                     className="border border-button text-text text-sm tracking-wider px-6 p-2 md:px-10 hover:bg-lightBg rounded-full">
                 {isPaused ? "Resume" : "Pause"}
                 </button>
-            <button onClick={onComplete}
+            <button onClick={onRestart}
             className="border border-button  text-text text-sm tracking-wider px-6 p-2 md:px-10  hover:bg-lightBg rounded-full">Restart</button>
         </div>
 

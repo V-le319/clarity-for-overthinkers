@@ -1,8 +1,11 @@
 
 
-export function TimeChoice({selectedTimer, setSelectedTimer, onComplete} : {
+export function TimeChoice({selectedTimer, setSelectedTimer, selected, thought, currentStep, onComplete} : {
     selectedTimer: number | null;
     setSelectedTimer: (value: number) => void;
+    selected: string | null;
+    thought: string;
+    currentStep: number;
     onComplete: ()=> void
 }) {
         
@@ -12,11 +15,10 @@ export function TimeChoice({selectedTimer, setSelectedTimer, onComplete} : {
             <div className="header w-full">
                 <h1 className="font-serif text-2xl font-extralight tracking-widest text-button mb-6 md:mb-10">Clarity</h1>
                 <div className="flex gap-2 w-full">
-                    <div className="h-1 w-full bg-button rounded-md"></div>
-                    <div className="h-1 w-full bg-lightBg rounded-md"></div>
-                    <div className="h-1 w-full bg-lightBg rounded-md"></div>
-                    <div className="h-1 w-full bg-lightBg rounded-md"></div>
-                </div>
+                {[1,2,3,4].map((step) => (
+  <div key={step} className={`h-1 w-full rounded-md ${currentStep >= step ? 'bg-button' : 'bg-lightBg'}`}/>
+))}
+</div>
                 </div>
 
             <div className="action-question py-4 ">
@@ -30,7 +32,7 @@ export function TimeChoice({selectedTimer, setSelectedTimer, onComplete} : {
             <div className="h-1/4 w-full bg-white border border-button border-opacity-50 rounded-md flex flex-col justify-center gap-4 p-2">
                 <div className="w-full h-auto p-4 rounded-md flex flex-col gap-4 justify-center items-start">
                     <h2 className="text-text opacity-70 uppercase tracking-wider text-xs">The Thought</h2>
-                    <p id="thought"  className="text-text font-sans tracking-wide italic">I keep worrying about finishing the project...</p>
+                    <p id="thought"  className="text-text font-sans tracking-wide italic">{thought}</p>
                 {/*adding logic later to register previous thought to this */}
                 </div>
 
@@ -38,7 +40,7 @@ export function TimeChoice({selectedTimer, setSelectedTimer, onComplete} : {
                 
                 <div className="w-full h-auto p-4 rounded-md flex flex-col gap-4 justify-center items-start">
                     <h2 className="text-text opacity-70 uppercase tracking-wider text-xs">Your move</h2>
-                    <p id="action"  className="text-text font-sans tracking-wide italic">Write it down</p>
+                    <p id="action"  className="text-text font-sans tracking-wide italic">{selected}</p>
                 {/*adding logic later to register previous choice of action to this */}
                 </div>
             </div>

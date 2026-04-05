@@ -1,4 +1,7 @@
-export function ThoughtQuestion({onComplete} : {
+export function ThoughtQuestion({thought, setThought, currentStep, onComplete} : {
+    thought: string;
+    setThought: (value: string)=> void;
+    currentStep: number;
     onComplete: ()=> void
 }) {
     return (
@@ -6,11 +9,10 @@ export function ThoughtQuestion({onComplete} : {
             <div className="header w-full ">
                 <h1 className="font-serif text-2xl font-extralight tracking-widest text-button mb-6 md:mb-10">Clarity</h1>
                 <div className="flex gap-2 w-full">
-                    <div className="h-1 w-full bg-button rounded-md"></div>
-                    <div className="h-1 w-full bg-lightBg rounded-md"></div>
-                    <div className="h-1 w-full bg-lightBg rounded-md"></div>
-                    <div className="h-1 w-full bg-lightBg rounded-md"></div>
-                </div>
+                {[1,2,3,4].map((step) => (
+  <div key={step} className={`h-1 w-full rounded-md ${currentStep >= step ? 'bg-button' : 'bg-lightBg'}`}/>
+))}
+</div>
             </div>
 
             <div className="thought-question py-10 ">
@@ -22,7 +24,8 @@ export function ThoughtQuestion({onComplete} : {
             </div>
 
             <div className="w-full h-1/3 ">
-                <textarea 
+                <textarea value={thought}
+                        onChange={(e) => setThought(e.target.value)}
                         className="w-full h-full p-4 text-text font-sans bg-mainBg outline-none border-b-2 border-button border-opacity-70"
                         placeholder="I keep worrying about..."
                         ></textarea>

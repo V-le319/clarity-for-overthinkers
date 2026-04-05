@@ -7,9 +7,11 @@ import { useState, useEffect } from "react";
 function App() {
         const [selected, setSelected] = useState<string | null>(null);
         const [selectedTimer, setSelectedTimer] = useState<number | null>(null);
+        const [thought, setThought] = useState<string>("");
 
         const [currentStep, setCurrentStep] = useState(0);
         const handleNext = () => setCurrentStep(currentStep + 1); 
+        const handleRestart = () => setCurrentStep(1);
 
           useEffect(() => {
             if(currentStep === 0) {
@@ -49,10 +51,10 @@ function App() {
     </div>
     )}
 
-      {currentStep === 1 && <ThoughtQuestion onComplete={handleNext}/>}
-      {currentStep === 2 && <ActionQuestion selected={selected} setSelected={setSelected} onComplete={handleNext}/>}
-      {currentStep === 3 && <TimeChoice selectedTimer={selectedTimer} setSelectedTimer={setSelectedTimer} onComplete={handleNext}/>}
-      {currentStep === 4 && <Countdown selectedTimer={selectedTimer} selected={selected} onComplete={handleNext}/>}
+      {currentStep === 1 && <ThoughtQuestion thought={thought} currentStep={currentStep} setThought={setThought} onComplete={handleNext}/>}
+      {currentStep === 2 && <ActionQuestion selected={selected} setSelected={setSelected} thought={thought} currentStep={currentStep} onComplete={handleNext}/>}
+      {currentStep === 3 && <TimeChoice selectedTimer={selectedTimer} selected={selected} thought={thought} setSelectedTimer={setSelectedTimer} currentStep={currentStep} onComplete={handleNext}/>}
+      {currentStep === 4 && <Countdown selectedTimer={selectedTimer} selected={selected} currentStep={currentStep}  onRestart={handleRestart}/>}
 
     </>
 
