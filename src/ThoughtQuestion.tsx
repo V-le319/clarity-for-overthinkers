@@ -23,7 +23,7 @@ export function ThoughtQuestion({thought, setThought, currentStep, onComplete} :
                 <p className="text-text font-sans  opacity-70 text-sm md:text-base tracking-wide ">No filter. No judgement. Just write it out — messy, scattered, all of it.</p>
             </div>
 
-            <div className="w-full h-1/3 ">
+            <div className="w-full h-auto ">
                 <textarea value={thought}
                         onChange={(e) => setThought(e.target.value)}
                         className="w-full h-full p-4 text-text text-base font-sans bg-mainBg outline-none border-b-2 border-button border-opacity-70"
