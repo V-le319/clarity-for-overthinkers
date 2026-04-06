@@ -27,7 +27,7 @@ const seconds = timeLeft % 60;
 
 
     return (
-        <div className="bg-mainBg h-screen max-w-screen p-6 md:p-10 flex flex-col gap-10 justify-center items-start">
+        <div className="page-transition bg-mainBg h-screen max-w-screen p-6 md:p-10 flex flex-col gap-10 justify-center items-start">
             <div className="header w-full">
                 <h1 className="font-serif text-2xl font-extralight tracking-widest text-button mb-6 md:mb-10">Clarity</h1>
                 <div className="flex gap-2 w-full">
@@ -85,6 +85,7 @@ const seconds = timeLeft % 60;
 
         <div className="w-full">
             <p className="text-center mt-6 text-text opacity-50 text-sm">one thought · one action · one block of time</p>
+            <p className="w-full text-center mt-1 text-text opacity-50 text-sm">Copyright © 2026 VLe</p>
         </div>
 
     </div>

@@ -11,7 +11,7 @@ export function ActionQuestion({selected, setSelected, thought, currentStep, onC
     const [showOther, setShowOther] = useState(false)
 
     return (
-        <div className="bg-mainBg min-h-screen max-w-screen p-6 md:p-10 flex flex-col gap-6 justify-center items-start">
+        <div className="page-transition bg-mainBg min-h-screen max-w-screen p-6 md:p-10 flex flex-col gap-6 justify-center items-start">
             <div className="header w-full">
                 <h1 className="font-serif text-2xl font-extralight tracking-widest text-button mb-6 md:mb-10">Clarity</h1>
                 <div className="flex gap-2 w-full">
@@ -21,9 +21,9 @@ export function ActionQuestion({selected, setSelected, thought, currentStep, onC
 </div>
                 </div>
 
-                <div className="action-question py-4 ">
+                <div className="action-question ">
                     <p className="text-text font-sans uppercase  font-light opacity-80 text-xs tracking-widest ">one small move</p>
-                    <h1 className="text-text font-serif font-light text-4xl md:text-5xl py-4  tracking-wide">
+                    <h1 className="text-text font-serif font-normal text-5xl py-4  tracking-wide">
                     What's <span className="text-button italic">one thing</span> you could do about it right now?
                     </h1>
                 </div>
@@ -62,7 +62,7 @@ export function ActionQuestion({selected, setSelected, thought, currentStep, onC
     <textarea
       onClick={(e) => e.stopPropagation()}
       onChange={(e) => setSelected(e.target.value)}
-      className="w-full h-auto p-2 bg-transparent outline-none resize-none text-sm font-sans text-text"
+      className="w-full h-auto p-2 bg-transparent outline-none resize-none text-base font-sans text-text"
       placeholder="I'm going to..."
       rows={2}
       autoFocus
@@ -78,6 +78,7 @@ export function ActionQuestion({selected, setSelected, thought, currentStep, onC
                         className="w-full h-10 md:h-14 tracking-widest  bg-text rounded-full text-white transform md:text-lg hover:bg-button">
                     I know what to do →</button>
                 <p className="text-center mt-6 text-text opacity-50 text-sm">one thought · one action · one block of time</p>
+                <p className="w-full text-center mt-1 text-text opacity-50 text-sm">Copyright © 2026 VLe</p>
             </div>
 
         </div>

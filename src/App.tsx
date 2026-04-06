@@ -4,6 +4,7 @@ import { TimeChoice } from "./TimeChoice";
 import { Countdown } from "./Countdown";
 import { useState, useEffect, useCallback } from "react";
 
+
 function App() {
         const [selected, setSelected] = useState<string | null>(null);
         const [selectedTimer, setSelectedTimer] = useState<number | null>(null);
@@ -25,7 +26,8 @@ function App() {
 }, [currentStep, handleNext])
 
   return (
-    <>
+    
+    <div>
     {currentStep === 0 && (
     <div className="min-h-screen bg-lightBg flex flex-col items-center justify-center ">
       <svg className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 -rotate-90" viewBox="0 0 200 200">
@@ -58,7 +60,7 @@ function App() {
       {currentStep === 3 && <TimeChoice selectedTimer={selectedTimer} selected={selected} thought={thought} setSelectedTimer={setSelectedTimer} currentStep={currentStep} onComplete={handleNext}/>}
       {currentStep === 4 && <Countdown selectedTimer={selectedTimer} selected={selected} currentStep={currentStep}  onRestart={handleRestart}/>}
 
-    </>
+    </div>
 
   );
 }
