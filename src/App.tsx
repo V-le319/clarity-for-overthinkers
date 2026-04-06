@@ -11,10 +11,16 @@ function App() {
         const [thought, setThought] = useState<string>("");
 
         const [currentStep, setCurrentStep] = useState(0);
+        
         const handleNext = useCallback(() => {
   setCurrentStep(currentStep + 1)
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }, [currentStep]);
-        const handleRestart = () => setCurrentStep(1);
+        
+const handleRestart = () => {
+  setCurrentStep(1);
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 
           useEffect(() => {
   if (currentStep === 0) {
