@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export function Countdown({selectedTimer, selected, currentStep, onRestart} : {
     selectedTimer: number | null;
@@ -9,17 +9,73 @@ export function Countdown({selectedTimer, selected, currentStep, onRestart} : {
 }) {
 
         const [isPaused, setIsPaused] = useState(false);
-
         const [timeLeft, setTimeLeft] = useState((selectedTimer ?? 0) * 60);
+        const [alarmPlaying, setAlarmPlaying] = useState(false);
+        const audioCtxRef = useRef<AudioContext | null>(null);
+        const alarmIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
          useEffect(() => {
-  if (timeLeft === 0 || isPaused) return
+            if (timeLeft === 0 || isPaused) return
   
-  const timer = setInterval(() => {
-    setTimeLeft(timeLeft - 1)
-  }, 1000)
+            const timer = setInterval(() => {
+                setTimeLeft(timeLeft - 1)
+                }, 1000)
   
-  return () => clearInterval(timer)
-}, [timeLeft, isPaused])
+                return () => clearInterval(timer)
+                }, [timeLeft, isPaused])
+
+// Trigger alarm when timeLeft hits 0
+    useEffect(() => {
+        if (timeLeft === 0) {
+            playAlarm();
+        }
+    }, [timeLeft]);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => stopAlarm();
+    }, []);
+
+    const playAlarm = () => {
+        stopAlarm(); // clear any previous
+        const ctx = new AudioContext();
+        audioCtxRef.current = ctx;
+        setAlarmPlaying(true);
+
+        const beep = () => {
+            // Two-tone chime: high then low
+            [[880, 0, 0.15], [660, 0.18, 0.15]].forEach(([freq, delay, dur]) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = "sine";
+                osc.frequency.value = freq;
+                const start = ctx.currentTime + delay;
+                gain.gain.setValueAtTime(0, start);
+                gain.gain.linearRampToValueAtTime(0.4, start + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.001, start + dur);
+                osc.start(start);
+                osc.stop(start + dur + 0.05);
+            });
+        };
+
+        beep();
+        // Repeat every 1.2s
+        alarmIntervalRef.current = setInterval(beep, 1200);
+    };
+
+    const stopAlarm = () => {
+        if (alarmIntervalRef.current) {
+            clearInterval(alarmIntervalRef.current);
+            alarmIntervalRef.current = null;
+        }
+        if (audioCtxRef.current) {
+            audioCtxRef.current.close();
+            audioCtxRef.current = null;
+        }
+        setAlarmPlaying(false);
+    };
 
 const minutes = Math.floor(timeLeft / 60)
 const seconds = timeLeft % 60;
@@ -64,6 +120,19 @@ const seconds = timeLeft % 60;
                     
                     />
                 </svg>
+
+                {/* Alarm indicator + dismiss */}
+                {alarmPlaying && (
+                    <div className="flex flex-col items-center gap-3 mt-2 animate-pulse">
+                        <p className="text-button text-sm tracking-widest font-light">Time's up</p>
+                        <button
+                            onClick={stopAlarm}
+                            className="border border-button text-text text-sm tracking-wider px-6 py-2 hover:bg-lightBg rounded-full"
+                        >
+                            Dismiss
+                        </button>
+                    </div>
+                )}
         </div>
 
         <div className="w-full flex flex-col justify-center items-center">
