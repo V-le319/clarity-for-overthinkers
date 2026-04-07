@@ -28,8 +28,8 @@ export function Countdown({selectedTimer, selected, currentStep, onRestart} : {
     useEffect(() => {
         if (timeLeft === 0) {
             playAlarm();
-             // eslint-disable-next-line react-hooks/exhaustive-deps
         }
+          // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timeLeft]);
 
     // Cleanup on unmount
